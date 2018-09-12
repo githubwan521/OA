@@ -1,0 +1,31 @@
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 主配置文件 -->
+    <!-- 导入数据库连接信息配置 -->
+    <properties resource="jdbc.properties"/>
+
+    <!-- <typeAliases> <typeAlias type="com.chinasoft.vo.Person" alias="Person"/>
+        </typeAliases> -->
+    <!-- environments配置 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- 使用jdbc事务管理 -->
+            <transactionManager type="JDBC"/>
+            <!-- 数据库连接 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${user}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 加载mapper.xml -->
+    <mappers>
+        <mapper resource="MyBatis.Mapper.StudentMapper  "/>
+    </mappers>
+
+</configuration>

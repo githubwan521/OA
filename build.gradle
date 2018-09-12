@@ -1,0 +1,59 @@
+group 'motian'
+version '1.0'
+
+// 插件
+apply plugin: 'java'
+//java插件的部分属性 jdk版本依赖
+sourceCompatibility = 1.8
+
+
+apply plugin: 'war'
+
+//依赖包的仓库中心
+repositories {
+    //指定的远程仓库
+    maven {
+        url 'http://repo.spring.io/libs-release'
+    }
+
+    //maven仓库
+    mavenCentral()
+    //本地maven仓库是之前下载的依赖，缓存在本地磁盘
+    mavenLocal()
+
+}
+
+// 所需的依赖
+dependencies {
+    //sping 相关包
+    compile 'org.springframework:spring-webmvc:5.0.6.RELEASE'
+    compile 'org.springframework:spring-web:5.0.6.RELEASE'
+    //Spring的核心工具包
+    compile 'org.springframework:spring-core:5.0.5.RELEASE'
+    compile 'org.springframework:spring-context:5.0.5.RELEASE'
+    compile 'org.springframework:spring-tx:5.0.5.RELEASE'
+    //对JDBC的简单封装
+    compile 'org.springframework:spring-jdbc:4.2.5.RELEASE'
+
+    //sprinmvc
+    compile 'javax.servlet:javax.servlet-api:4.0.1'
+
+    // 数据库相关
+    //实现mybatis框架的工具包
+    compile 'org.mybatis:mybatis:3.4.6'
+    //集合spring与mybatis框架的工具包
+    compile "org.mybatis:mybatis-spring:1.2.2"
+    //数据库连接包
+    compile "mysql:mysql-connector-java:5.1.23"
+    compile 'c3p0:c3p0:0.9.1.2'
+
+    // 工具包
+    //Google的基于java1.6的类库集合的扩展项
+    compile group: 'com.google.collections', name: 'google-collections', version: '1.0'
+    // lombok插件包
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+    //json相关包
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.41'
+    compile('net.sf.json-lib:json-lib:2.4:jdk15')
+
+}

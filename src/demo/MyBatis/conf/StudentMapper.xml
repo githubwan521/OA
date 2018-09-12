@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MyBatis.Mapper.StudentMapper">
+    <!--映射的配置文件  -->
+    <resultMap id="StudentType" type="dMyBatis.model.Student">
+        <result property="name" column="name"/>
+        <result property="pass" column="pass"/>
+    </resultMap>
+
+    <select id="get" resultMap="StudentType">
+		SELECT name,pass
+		from studen
+		where name = #{name}
+		and pass = #{pass}
+	</select>
+
+</mapper>
