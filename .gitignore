@@ -1,16 +1,13 @@
+### project ###
 .gradle
 /build/
-/log/
 /out/
 /lib/
 /gradle/
 !gradle/wrapper/gradle-wrapper.jar
-*/application.properties
 src/main/webapp/
 
 ### IntelliJ IDEA ###
 .idea
-*.iws
-*.iml
-*.ipr
+
 
