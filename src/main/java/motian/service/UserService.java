@@ -2,7 +2,7 @@ package motian.service;
 
 import motian.dao.manager.UserManager;
 import motian.dao.model.UserData;
-import motian.utils.OAServiceUtil;
+import motian.utils.OAServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +22,7 @@ public class UserService {
     @Transactional
     public UserData addUser(String nickname, int identity, int department) {
         UserData userData = new UserData(nickname, identity, department);
-        userData.setUserId(OAServiceUtil.generateId());
-        userData.setAddTime(OAServiceUtil.getCurrentTime());
-        userData.setUpdateTime(OAServiceUtil.getCurrentTime());
+        userData.setUserId(OAServiceUtils.generateId());
 
         boolean res = 1 == userManager.insert(userData);
         return res ? userData : null;

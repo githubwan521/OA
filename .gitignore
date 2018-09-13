@@ -1,8 +1,8 @@
 ### project ###
 .gradle
 /build/
+/log/
 /out/
-/lib/
 /gradle/
 !gradle/wrapper/gradle-wrapper.jar
 src/main/webapp/

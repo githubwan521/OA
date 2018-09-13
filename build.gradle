@@ -5,9 +5,12 @@ version '1.0'
 apply plugin: 'java'
 //java插件的部分属性 jdk版本依赖
 sourceCompatibility = 1.8
-
-
 apply plugin: 'war'
+
+//指定编译的编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
 
 //依赖包的仓库中心
 repositories {
@@ -25,7 +28,7 @@ repositories {
 
 // 所需的依赖
 dependencies {
-    //sping 相关包
+    //1------sping 相关包
     compile 'org.springframework:spring-webmvc:5.0.6.RELEASE'
     compile 'org.springframework:spring-web:5.0.6.RELEASE'
     //Spring的核心工具包
@@ -37,17 +40,29 @@ dependencies {
 
     //sprinmvc
     compile 'javax.servlet:javax.servlet-api:4.0.1'
+    //JSTL
+    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
 
-    // 数据库相关
+    //2------数据库相关
     //实现mybatis框架的工具包
-    compile 'org.mybatis:mybatis:3.4.6'
+    compile 'org.mybatis:mybatis:3.2.8'
     //集合spring与mybatis框架的工具包
     compile "org.mybatis:mybatis-spring:1.2.2"
     //数据库连接包
     compile "mysql:mysql-connector-java:5.1.23"
+    //数据库连接池
     compile 'c3p0:c3p0:0.9.1.2'
 
-    // 工具包
+    //3------日志
+    //将spring引用的日志实现commons-logging导入到slf4j中------自动引入slfj-api
+    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.25'
+    //compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+
+    //使用logback来实现日志----自动引入logback-core
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    //compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+
+    //4------工具包
     //Google的基于java1.6的类库集合的扩展项
     compile group: 'com.google.collections', name: 'google-collections', version: '1.0'
     // lombok插件包
@@ -55,5 +70,9 @@ dependencies {
     //json相关包
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.41'
     compile('net.sf.json-lib:json-lib:2.4:jdk15')
+    //respose数据转换为json格式
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
+//    compile('org.codehaus.jackson:jackson-mapper-asl:1.9.13')
+
 
 }

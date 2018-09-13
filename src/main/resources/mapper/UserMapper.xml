@@ -8,18 +8,20 @@
         <result property="nickname" column="nickname"/>
         <result property="identity" column="identity"/>
         <result property="department" column="department"/>
-        <result property="addTime" column="add_time"/>
-        <result property="updateTime" column="update_time"/>
     </resultMap>
 
     <sql id="userColums">
-        nickname, identity, department, add_time, update_time
+        nickname, identity, department
     </sql>
 
     <insert id="insert">
-        insert into OA_user(<include refid="userColums"/>)
+        insert into OA_user
+        (user_id,
+        <include refid="userColums"/>
+        ,db_create_time,db_update_time)
         values
-        (#{data.userId},#{data.nickname},#{data.identity},#{data.department})
+        (#{data.userId},#{data.nickname},#{data.identity},
+        #{data.department} ,now(),now());
     </insert>
 
 </mapper>

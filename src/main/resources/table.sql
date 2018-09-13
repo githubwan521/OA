@@ -1,6 +1,7 @@
-drop database if exit oa;
-create database oa;
+create database if not exists oa;
 use oa;
+
+drop table if exists oa_user;
 
 
 create table oa_user(
@@ -9,8 +10,6 @@ create table oa_user(
   `nickname` VARCHAR(128) NOT NULL   COMMENT '用户昵称',
   `identity` VARCHAR(128) NOT NULL   COMMENT '用户所属身份',
   `department` VARCHAR(128) NOT NULL  COMMENT '用户所在部门',
-  `add_time` VARCHAR(128) NOT NULL  COMMENT 'server创建时间',
-  `update_time` VARCHAR(128) NOT NULL   COMMENT 'server更新时间',
   `db_create_time` TIMESTAMP NOT NULL DEFAULT '2017-01-01 00:00:00' COMMENT 'create time of record, for db',
   `db_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 

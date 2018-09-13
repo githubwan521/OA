@@ -1,6 +1,7 @@
 package motian.controller;
 
 import motian.constant.OAConstant;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date: 2018/9/12 22:19
  */
 
-
+@Controller
 public abstract class AbstractController {
     private static final String OBJECT_USER_ATTRIBUTE = "OBJECT_USER";
     private static final String X_USER_ID = "userId";
