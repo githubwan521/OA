@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="motian.dao.mapper.SundryMapper">
+    <resultMap id="SundryType" type="SundryData">
+        <result property="sundryId" column="sundry_id"/>
+        <result property="key" column="key"/>
+        <result property="value" column="value"/>
+    </resultMap>
+
+    <sql id="sundryColums">
+        key, value
+    </sql>
+
+    <insert id="insert">
+        insert into oa_sundry
+        (sundry_id,
+        <include refid="sundryColums"/>
+        ,db_create_time,db_update_time)
+        values
+        (#{data.sundryId},#{data.key},#{data.value},now(),now());
+    </insert>
+
+    <update id="update">
+        update oa_sundry
+        set
+        <if test="key!=null">key=#{data.key}</if>,
+        <if test="value!=null">value =#{data.value}</if>,
+        db_update_time = now()
+        where sundry_id = #{data.sundryId}
+    </update>
+
+    <select id="getSundry" resultType="SundryData">
+        select
+        <include refid="sundryColums"/>
+        from oa_sundry
+        where key = #{key}
+        and value = #{value}
+    </select>
+
+    <select id="getSundryById" resultType="SundryData">
+        select
+        <include refid="sundryColums"/>
+        from oa_sundry
+        where sundry_id = #{sundryId}
+    </select>
+
+    <select id="getSundryList" resultType="SundryData">
+        select
+        <include refid="sundryColums"/>
+        from oa_userinfo
+        where type = #{key}
+    </select>
+
+</mapper>

@@ -3,7 +3,6 @@ package motian.service;
 import motian.controller.UserController;
 import motian.dao.manager.UserInfoManager;
 import motian.dao.manager.UserManager;
-import motian.dao.model.DataType;
 import motian.dao.model.UserData;
 import motian.dao.model.UserInfoData;
 import org.apache.commons.logging.Log;
@@ -23,8 +22,7 @@ import java.util.List;
 
 @Service
 public class UserInfoService {
-    private static final Log LOG = LogFactory.getLog(UserController.class);
-
+    private static final Log LOG = LogFactory.getLog(UserInfoService.class);
 
     @Autowired
     private UserManager userManager;
@@ -34,13 +32,13 @@ public class UserInfoService {
 
     @Transactional
     public UserInfoData addUserInfo(long userId, String pass, String introduce,
-                                    String interest, String telephone, int share) {
+                                    String interest, String telephone) {
         UserData userData = userManager.getUserByUserId(userId);
         if (StringUtils.isEmpty(userData)) {
             LOG.warn("fail to addUserInfo userinfo. user does not exist. userId=" + userId);
             return null;
         }
-        UserInfoData userInfoData = new UserInfoData(userId, pass, introduce, interest, telephone, share);
+        UserInfoData userInfoData = new UserInfoData(userId, pass, introduce, interest, telephone);
 
         boolean res = 1 == userInfoManager.insert(userInfoData);
         return res ? userInfoData : null;
@@ -48,7 +46,7 @@ public class UserInfoService {
 
     @Transactional
     public UserInfoData updateUserInfo(long userId, String pass, String introduce,
-                                       String interest, String telephone, int share) {
+                                       String interest, String telephone) {
         UserData userData = userManager.getUserByUserId(userId);
         if (StringUtils.isEmpty(userData)) {
             LOG.warn("fail to updateUserInfo userinfo. user does not exist. userId=" + userId);
@@ -68,9 +66,7 @@ public class UserInfoService {
         if (!StringUtils.isEmpty(telephone)) {
             userInfoData.setTelephone(telephone);
         }
-        if (!StringUtils.isEmpty(share)) {
-            userInfoData.setShare(share);
-        }
+
         boolean res = 1 == userInfoManager.update(userInfoData);
         return res ? userInfoData : null;
     }
@@ -81,7 +77,7 @@ public class UserInfoService {
     }
 
 
-    public List<UserInfoData> getUserInfoList(int model) {
-        return userInfoManager.getUserInfoList(model);
+    public List<UserInfoData> getUserInfoList() {
+        return userInfoManager.getUserInfoList();
     }
 }

@@ -6,13 +6,13 @@
     <resultMap id="UserType" type="UserData">
         <result property="userId" column="user_id"/>
         <result property="nickname" column="nickname"/>
-        <result property="identity" column="identity"/>
+        <result property="identity" column="status"/>
         <result property="department" column="department"/>
-        <result property="status" column="status"/>
+        <result property="status" column="state"/>
     </resultMap>
 
     <sql id="userColums">
-        nickname, identity, department,status
+        nickname, status, department,state
     </sql>
 
     <insert id="insert">
@@ -54,7 +54,7 @@
     <select id="getUserListByStatus" resultType="UserData">
         select user_id,<include refid="userColums"/>
         from oa_user
-        where status = #{status}
+        where status = #{state}
     </select>
 
 

@@ -3,33 +3,32 @@ package motian.dao.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
 
 /**
  * @Author: gongzhanjing
  * @Email: gongzhanjing@xiyoulinux.org
- * @Date: 2018/9/14 10:54
+ * @Date: 2018/9/14 14:49
  */
-
 @Data
 @NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
-public class UserInfoData extends BaseData {
-    private long userId;
-    private String pass;
-    private String introduce;
-    private String interest;
-    private String telephone;
+public class SundryData extends BaseData {
+    private long sundryId;
+    @NonNull
+    private String key;     //类别角色/部门
+    @NonNull
+    private String value;   //具体的值
 
     @Override
     protected Object toJsonStructuredObject() {
         HashMap<String, Object> objMap = new HashMap<String, Object>();
-        objMap.put("userId", userId);
-        objMap.put("pass", pass);
-        objMap.put("introduce", introduce);
-        objMap.put("interest", interest);
-        objMap.put("telephone", telephone);
+        objMap.put("key", key);
+        objMap.put("value", value);
 
         return objMap;
     }

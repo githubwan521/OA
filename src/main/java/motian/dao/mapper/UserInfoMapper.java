@@ -18,5 +18,5 @@ public interface UserInfoMapper {
 
     UserInfoData getUserInfoById(@Param("userId") long userId);
 
-    List<UserInfoData> getUserInfoList(@Param("share") int share);
+    List<UserInfoData> getUserInfoList();
 }

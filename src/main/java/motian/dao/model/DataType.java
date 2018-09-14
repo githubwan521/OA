@@ -7,8 +7,9 @@ package motian.dao.model;
  */
 
 public class DataType {
-    public interface IDataType {
+    interface IDataType {
     }
+
     public enum UserType implements IDataType {
         ALL(1),                 //所有员工
         IN_SERVICE(2),          //在职
@@ -26,6 +27,28 @@ public class DataType {
             return code;
         }
     }
+
+    public enum SundryType implements IDataType {
+        IDENTITY(1),           //角色身份
+        DEPARTMENT(2),         //角色部门
+
+
+        UNKNOWN(100),         //未知
+        ;
+
+        private final int code;
+
+        SundryType(int code) {
+            this.code = code;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+    }
+
+
     public enum IdentityType implements IDataType {
         ADMINISTRATORS(1),          // 管理员
         ORDINARY(2),                //普通员工

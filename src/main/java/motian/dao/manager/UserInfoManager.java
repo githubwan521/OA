@@ -35,8 +35,8 @@ public class UserInfoManager {
     }
 
 
-    public List<UserInfoData> getUserInfoList(int share) {
-        return mapper.getUserInfoList(share);
+    public List<UserInfoData> getUserInfoList() {
+        return mapper.getUserInfoList();
     }
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,23 +41,21 @@ public class UserInfoController extends AbstractController {
             @RequestParam(value = "introduce", required = false) String introduce,
             @RequestParam(value = "interest", required = false) String interest,
             @RequestParam(value = "telephone", required = false) String telephone,
-            @RequestParam(value = "share", required = false) int share,
             HttpServletRequest request, HttpServletResponse response) {
 
         LOG.debug("/oa/user/addUserInfo   " + "userId=" + userId + "," +
                 "pass=" + pass + "," + "introduce=" + introduce + "interest=" + interest
-                + "telephone=" + telephone + "share=" + share);
+                + "telephone=" + telephone);
 
         Map<String, Object> map = Maps.newHashMap();
         UserInfoData userInfoData = userInfoService.addUserInfo(userId, pass, introduce,
-                interest, telephone, share);
+                interest, telephone);
         if (StringUtils.isEmpty(userInfoData)) {
             LOG.warn("fail to add userinfo." + "userId=" + userId);
         }
 
         map.put("result", userInfoData != null);
         map.put("userInfoData", userInfoData);
-
         return OAWebUtils.toJsonObject(map);
     }
 
@@ -67,24 +66,46 @@ public class UserInfoController extends AbstractController {
             @RequestParam(value = "introduce", required = false) String introduce,
             @RequestParam(value = "interest", required = false) String interest,
             @RequestParam(value = "telephone", required = false) String telephone,
-            @RequestParam(value = "share", required = false) int share,
             HttpServletRequest request, HttpServletResponse response) {
 
         LOG.debug("/oa/user/updateUserInfo   " + "userId=" + userId + "," +
                 "pass=" + pass + "," + "introduce=" + introduce + "interest=" + interest
-                        + "telephone=" + telephone + "share=" + share);
+                + "telephone=" + telephone);
 
         Map<String, Object> map = Maps.newHashMap();
         UserInfoData userInfoData = userInfoService.updateUserInfo(userId, pass, introduce,
-                interest, telephone, share);
+                interest, telephone);
         if (StringUtils.isEmpty(userInfoData)) {
             LOG.warn("fail to update user." + "userId=" + userId);
         }
 
         map.put("result", userInfoData != null);
         map.put("userInfoData", userInfoData);
-
         return OAWebUtils.toJsonObject(map);
     }
 
+    @RequestMapping(params = "method=getUserInfoById", method = RequestMethod.GET)
+    public Map<String, Object> getUserInfoById(
+            @RequestParam(value = "userId") long userId,
+            HttpServletRequest request, HttpServletResponse response) {
+
+        LOG.debug("/oa/user/getUserInfoById");
+        Map<String, Object> map = Maps.newHashMap();
+        UserInfoData userInfoData = userInfoService.getUserInfoById(userId);
+
+        map.put("userInfoData", userInfoData);
+        return OAWebUtils.toJsonObject(map);
+    }
+
+    @RequestMapping(params = "method=getUserInfoList", method = RequestMethod.GET)
+    public Map<String, Object> getUserInfoList(
+            HttpServletRequest request, HttpServletResponse response) {
+
+        LOG.debug("/oa/user/getUserInfoList");
+        Map<String, Object> map = Maps.newHashMap();
+        List<UserInfoData> userInfoList = userInfoService.getUserInfoList();
+
+        map.put("userInfoList", userInfoList);
+        return OAWebUtils.toJsonObject(map);
+    }
 }
