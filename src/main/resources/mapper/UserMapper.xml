@@ -8,20 +8,55 @@
         <result property="nickname" column="nickname"/>
         <result property="identity" column="identity"/>
         <result property="department" column="department"/>
+        <result property="status" column="status"/>
     </resultMap>
 
     <sql id="userColums">
-        nickname, identity, department
+        nickname, identity, department,status
     </sql>
 
     <insert id="insert">
-        insert into OA_user
-        (user_id,
-        <include refid="userColums"/>
-        ,db_create_time,db_update_time)
+        insert into oa_user
+        (user_id,<include refid="userColums"/>,db_create_time,db_update_time)
         values
-        (#{data.userId},#{data.nickname},#{data.identity},
-        #{data.department} ,now(),now());
+        (#{data.userId},#{data.nickname},#{data.identity},#{data.department},#{data.status},now(),now());
     </insert>
+
+    <update id="update">
+        update oa_user
+        set
+        <if test="nickname!=null">nickname=#{data.nickname}</if>,
+        <if test="identity!=null">identity =#{data.identity}</if>,
+        <if test="department!=null">department=#{data.department}</if>,
+        <if test="status!=null">status=#{data.status}</if>,
+        db_update_time = now()
+        where user_id = #{data.userId}
+    </update>
+
+    <select id="getUserByUserId" resultType="UserData">
+        select user_id,<include refid="userColums"/>
+        from oa_user
+        where user_id = #{userId}
+    </select>
+
+    <select id="getUserByNickname" resultType="UserData">
+        select user_id,<include refid="userColums"/>
+        from oa_user
+        where nickname = #{nickname}
+    </select>
+
+    <select id="getUserList" resultType="UserData">
+        select user_id,<include refid="userColums"/>
+        from oa_user
+    </select>
+
+
+    <select id="getUserListByStatus" resultType="UserData">
+        select user_id,<include refid="userColums"/>
+        from oa_user
+        where status = #{status}
+    </select>
+
+
 
 </mapper>

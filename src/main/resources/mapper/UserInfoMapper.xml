@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="motian.dao.mapper.UserInfoMapper">
+    <resultMap id="UserInfoType" type="UserInfoData">
+        <result property="userId" column="user_id"/>
+        <result property="pass" column="user_pass"/>
+        <result property="introduce" column="introduce"/>
+        <result property="interest" column="interest"/>
+        <result property="telephone" column="telephone"/>
+        <result property="share" column="share"/>
+    </resultMap>
+
+    <sql id="userInfoColums">
+        user_id,user_pass,introduce,interest,telephone,share
+    </sql>
+
+    <insert id="insert">
+        insert into oa_userinfo
+        (<include refid="userInfoColums"/>,db_create_time,db_update_time)
+        values
+        (#{data.userId},#{data.pass},#{data.introduce},#{data.interest},#{data.telephone},#{data.share},now(),now());
+    </insert>
+
+    <update id="update">
+        update oa_userinfo
+        set
+        <if test="pass!=null">user_pass=#{data.pass}</if>,
+        <if test="introduce!=null">introduce =#{data.introduce}</if>,
+        <if test="interest!=null">interest=#{data.interest}</if>,
+        <if test="telephone!=null">telephone=#{data.telephone}</if>,
+        <if test="share!=null">share=#{data.share}</if>,
+        db_update_time = now()
+        where user_id = #{data.userId}
+    </update>
+
+    <select id="getUserInfoById" resultType="UserInfoData">
+        select
+        <include refid="userInfoColums"/>
+        from oa_userinfo
+        where user_id = #{userId}
+    </select>
+
+
+    <select id="getUserInfoList" resultType="UserInfoData">
+        select
+        <include refid="userInfoColums"/>
+        from oa_userinfo
+        where share = #{share}
+    </select>
+
+
+</mapper>

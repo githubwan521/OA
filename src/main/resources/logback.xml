@@ -19,11 +19,26 @@
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %msg%n</pattern>
         </encoder>
     </appender>
-
-    <logger name="motian.controller" level="DEBUG">
+    <appender name="warning" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 配置滚动的策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志名称的格式 -->
+            <fileNamePattern>${LOG_HOME}/oa.log.warning.%d{yyyy-MM-dd}</fileNamePattern>
+            <!-- 保存的最长时间：天数 -->
+            <MaxHistory>3</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="motian.controller" level="DEBUG" addtivity="false">
         <appender-ref ref="default"/>
     </logger>
-    <root level="DEBUG">
+    <logger name="motian" level="WARN" addtivity="false">
+        <appender-ref ref="warning"/>
+    </logger>
+
+    <root level="error">
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>

@@ -25,6 +25,8 @@ public class UserData extends BaseData {
     @NonNull
     private int department;
 
+    private int status;
+
     @Override
     protected Object toJsonStructuredObject() {
         HashMap<String, Object> objMap = new HashMap<String, Object>();

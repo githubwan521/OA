@@ -7,5 +7,6 @@ package motian.constant;
  */
 public interface OAConstant {
     String ACTION = "Action";
+    String DEFAULTPASS= "123456";
 
 }

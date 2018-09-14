@@ -9,8 +9,24 @@ package motian.dao.model;
 public class DataType {
     public interface IDataType {
     }
+    public enum UserType implements IDataType {
+        ALL(1),                 //所有员工
+        IN_SERVICE(2),          //在职
+        DIMISSION(3),           //离职
 
-    public enum identityType implements IDataType {
+        ;
+
+        private final int code;
+
+        UserType(int code) {
+            this.code = code;
+        }
+
+        public int getCode() {
+            return code;
+        }
+    }
+    public enum IdentityType implements IDataType {
         ADMINISTRATORS(1),          // 管理员
         ORDINARY(2),                //普通员工
 
@@ -18,7 +34,7 @@ public class DataType {
 
         private final int code;
 
-        identityType(int code) {
+        IdentityType(int code) {
             this.code = code;
         }
 
@@ -27,7 +43,7 @@ public class DataType {
         }
     }
 
-    public enum departmentType implements IDataType {
+    public enum DepartmentType implements IDataType {
         TECHNOLOGY(1),              // 技术部
         HUMAN_RESOURCES(2),         //人力资源部
 
@@ -35,7 +51,7 @@ public class DataType {
 
         private final int code;
 
-        departmentType(int code) {
+        DepartmentType(int code) {
             this.code = code;
         }
 
@@ -43,4 +59,5 @@ public class DataType {
             return code;
         }
     }
+
 }
