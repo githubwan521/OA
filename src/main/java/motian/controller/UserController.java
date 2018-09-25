@@ -36,18 +36,18 @@ public class UserController extends AbstractController {
     @RequestMapping(params = "method=addUser", method = RequestMethod.POST)
     public Map<String, Object> addUser(
             @RequestParam(value = "nickname") String nickname,
-            @RequestParam(value = "identity") int identity,
+            @RequestParam(value = "status") int status,
             @RequestParam(value = "department") int department,
             HttpServletRequest request, HttpServletResponse response) {
 
         LOG.debug("/oa/user/addUser   " + "nickname=" + nickname + "," +
-                "identity=" + identity + "," + "department=" + department);
+                "identity=" + status + "," + "department=" + department);
 
         Map<String, Object> map = Maps.newHashMap();
-        UserData userData = userService.addUser(nickname, identity, department);
+        UserData userData = userService.addUser(nickname, status, department);
         if (StringUtils.isEmpty(userData)) {
             LOG.warn("fail to add user." + "nickname=" + nickname + "," +
-                    "identity=" + identity + "," + "department=" + department);
+                    "identity=" + status + "," + "department=" + department);
         }
 
         map.put("result", userData != null);
@@ -59,15 +59,16 @@ public class UserController extends AbstractController {
     public Map<String, Object> updateUser(
             @RequestParam(value = "userId") long userId,
             @RequestParam(value = "nickname", required = false) String nickname,
-            @RequestParam(value = "identity", required = false) int identity,
+            @RequestParam(value = "status", required = false) int status,
             @RequestParam(value = "department", required = false) int department,
+            @RequestParam(value = "state", required = false) int state,
             HttpServletRequest request, HttpServletResponse response) {
 
         LOG.debug("/oa/user/updateUser   " + "nickname=" + nickname + "," +
-                "identity=" + identity + "," + "department=" + department);
+                "identity=" + status + "," + "department=" + department);
 
         Map<String, Object> map = Maps.newHashMap();
-        UserData userData = userService.updateUser(userId, nickname, identity, department);
+        UserData userData = userService.updateUser(userId, nickname, status, department, state);
         if (StringUtils.isEmpty(userData)) {
             LOG.warn("fail to update user." + "userId=" + userId);
         }

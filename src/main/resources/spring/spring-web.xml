@@ -13,7 +13,7 @@
     <!--作用-->
     <!--1.开启SpringMVC注解模式，可以使用@RequestMapping，@PathVariable，@ResponseBody等-->
     <!--2.对静态资源处理，如js，css，jpg等-->
-    <!--3.配置jsp 显示ViewResolver，例如在controller中某个方法返回一个string类型的”login”，实际上会返回”/WEB-INF/login.jsp”-->
+    <!--3.配置jsp 显示ViewResolver，例如在controller中某个方法返回一个string类型的”login”，实际上会返回”/WEB-INF/login.html”-->
     <!--4.扫描web层 @Controller-->
 
 
@@ -34,7 +34,7 @@
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass"
                   value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/"/>
+        <property name="prefix" value="/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 

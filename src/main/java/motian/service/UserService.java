@@ -36,9 +36,9 @@ public class UserService {
 
 
     @Transactional
-    public UserData addUser(String nickname, int identity, int department) {
-        UserData userData = new UserData(nickname, identity, department);
-        userData.setStatus(DataType.UserType.IN_SERVICE.getCode());
+    public UserData addUser(String nickname, int status, int department) {
+        UserData userData = new UserData(nickname, status, department);
+        userData.setState(DataType.UserType.IN_SERVICE.getCode());
         userData.setUserId(OAServiceUtils.generateId());
 
         boolean res = 1 == userManager.insert(userData);
@@ -54,17 +54,20 @@ public class UserService {
     }
 
     @Transactional
-    public UserData updateUser(long userId, String nickname, int identity, int department) {
+    public UserData updateUser(long userId, String nickname, int status, int department,int state) {
         UserData userData = getUserByUserId(userId);
 
         if (!StringUtils.isEmpty(nickname)) {
             userData.setNickname(nickname);
         }
-        if (!StringUtils.isEmpty(identity)) {
-            userData.setIdentity(identity);
+        if (!StringUtils.isEmpty(status)) {
+            userData.setStatus(status);
         }
         if (!StringUtils.isEmpty(department)) {
             userData.setDepartment(department);
+        }
+        if (!StringUtils.isEmpty(state)) {
+            userData.setState(state);
         }
 
         boolean res = 1 == userManager.update(userData);

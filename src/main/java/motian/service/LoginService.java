@@ -28,15 +28,15 @@ public class LoginService {
     private UserInfoManager userInfoManager;
 
     public boolean login(String nickname, String password) {
+        LOG.info("nickname=" + nickname + "password=" + password);
         UserData userData = userManager.getUserByNickname(nickname);
         if (StringUtils.isEmpty(userData)) {
             return false;
         }
-        UserInfoData userInfoData = userInfoManager.getUserInfoById(userData.getUserId());
+        LOG.info("1111  nickname=" + nickname + "password=" + password);
 
-        if (password.equals(userInfoData.getPass())) {
-            return true;
-        }
-        return false;
+        UserInfoData userInfoData = userInfoManager.getUserInfoById(userData.getUserId());
+        LOG.info(userInfoData);
+        return password.equals(userInfoData.getPass());
     }
 }

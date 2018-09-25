@@ -33,7 +33,7 @@
         where user_id = #{data.userId}
     </update>
 
-    <select id="getUserInfoById" resultType="UserInfoData">
+    <select id="getUserInfoById" resultMap="UserInfoType">
         select
         <include refid="userInfoColums"/>
         from oa_userinfo
@@ -41,7 +41,7 @@
     </select>
 
 
-    <select id="getUserInfoList" resultType="UserInfoData">
+    <select id="getUserInfoList" resultMap="UserInfoType">
         select
         <include refid="userInfoColums"/>
         from oa_userinfo

@@ -21,20 +21,21 @@ public class UserData extends BaseData {
     @NonNull
     private String nickname;
     @NonNull
-    private int identity;
+    private int status;
     @NonNull
     private int department;
 
-    private int status;
+    private int state;
 
     @Override
     protected Object toJsonStructuredObject() {
         HashMap<String, Object> objMap = new HashMap<String, Object>();
         objMap.put("userId", userId);
         objMap.put("nickname", nickname);
-        objMap.put("identity", identity);
+        objMap.put("identity", status);
         objMap.put("department", department);
-      
+        objMap.put("state", department);
+
         return objMap;
     }
 
