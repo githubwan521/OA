@@ -1,3 +1,6 @@
+import com.google.common.collect.Maps;
+
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -10,6 +13,11 @@ public class Main {
         Scanner input = new Scanner(System.in);
         int n = input.nextInt();
         int m = n + 1;
+
+        Map<String, String> map = Maps.newHashMap();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + "  " + entry.getValue());
+        }
 
 
         while (true) {

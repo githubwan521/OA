@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="motian.dao.mapper.ScheduleMapper">
+    <resultMap id="ScheduleDataType"
+               type="ScheduleData">
+        <result property="schedule_id" column="schedule_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="readers_id" column="readers_id"/>
+        <result property="assign_id" column="assign_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="start_time" column="start_time"/>
+        <result property="end_time" column="end_time"/>
+    </resultMap>
+
+    <sql id="ScheduleDataCloum">
+        user_id, readers_id,assign_id,title,content,start_time,end_time
+    </sql>
+
+    <insert id="insert">
+        insert into oa_schedule
+        (schedule_id,
+        <include refid="ScheduleDataCloum"/>
+        ,db_create_time,db_update_time)
+        values
+        (#{data.schedule_id},#{data.user_id},#{data.readers_id},#{data.assign_id},
+        #{data.title},#{data.content},#{data.start_time},#{data.end_time},now(),now());
+    </insert>
+
+    <update id="update">
+        update oa_schedule
+        set
+        <if test="user_id!=null">user_id =#{data.user_id}</if>,
+        <if test="readers_id!=null">readers_id=#{data.readers_id}</if>,
+        <if test="assign_id!=null">assign_id=#{data.assign_id}</if>,
+        <if test="title!=null">title=#{data.title}</if>,
+        <if test="content!=null">content=#{data.content}</if>,
+        <if test="start_time!=null">start_time=#{data.start_time}</if>,
+        <if test="end_time!=null">end_time=#{data.end_time}</if>,
+        db_update_time = now()
+        where schedule_id = #{data.schedule_id}
+    </update>
+
+    <select id="getScheduleById"
+            resultMap="ScheduleDataType">
+        select schedule_id,
+        <include refid="ScheduleDataCloum"/>
+        from oa_schedule
+        where schedule_id = #{schedule_id}
+    </select>
+
+    <select id="getScheduleList"
+            resultMap="ScheduleDataType">
+        select schedule_id,
+        <include refid="ScheduleDataCloum"/>
+        from oa_schedule
+    </select>
+
+</mapper>

@@ -1,5 +1,6 @@
 package motian.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
@@ -8,6 +9,8 @@ import motian.dao.model.IJsonSerializable;
 
 import java.util.Collection;
 import java.util.Map;
+
+import static motian.constant.OAConstant.CALL_BACK;
 
 /**
  * @Author: gongzhanjing
@@ -59,5 +62,9 @@ public class OAWebUtils {
                 }
         );
         return array;
+    }
+
+    public static String toJsonp(Map<String, Object> map) {
+        return CALL_BACK + "(" + JSON.toJSONString(map) + ")";
     }
 }

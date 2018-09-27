@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="motian.dao.mapper.ConferenceRoomMapper">
+    <resultMap id="ConferenceRoomType" type="ConferenceRoomData">
+        <result property="cr_id" column="cr_id"/>
+        <result property="cr_name" column="cr_name"/>
+        <result property="cr_status" column="cr_status"/>
+    </resultMap>
+
+    <sql id="ConferenceRoomColums">
+        cr_name, cr_status
+    </sql>
+
+    <insert id="insert">
+        insert into oa_conference_room
+        (cr_id,
+        <include refid="ConferenceRoomColums"/>
+        ,db_create_time,db_update_time)
+        values
+        (#{data.cr_id},#{data.cr_name},#{data.cr_status},now(),now());
+    </insert>
+
+    <update id="update">
+        update oa_conference_room
+        set
+        <if test="cr_name!=null">cr_name =#{data.cr_name}</if>,
+        <if test="cr_status!=null">cr_status=#{data.cr_status}</if>,
+        db_update_time = now()
+        where cr_id = #{data.cr_id}
+    </update>
+
+    <select id="getConferenceRoomById" resultMap="ConferenceRoomType">
+        select cr_id,
+        <include refid="ConferenceRoomColums"/>
+        from oa_conference_room
+        where cr_id = #{cr_id}
+    </select>
+
+    <select id="getConferenceRoomList" resultMap="ConferenceRoomType">
+        select cr_id,
+        <include refid="ConferenceRoomColums"/>
+        from oa_conference_room
+    </select>
+
+</mapper>

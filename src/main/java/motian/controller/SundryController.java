@@ -33,7 +33,7 @@ public class SundryController extends AbstractController {
     SundryService sundryService;
 
     @RequestMapping(params = "method=addSundry", method = RequestMethod.POST)
-    public Map<String, Object> addSundry(
+    public String addSundry(
             @RequestParam(value = "key") String key,
             @RequestParam(value = "value") String value,
             HttpServletRequest request, HttpServletResponse response) {
@@ -50,11 +50,11 @@ public class SundryController extends AbstractController {
 
         map.put("result", sundryData != null);
         map.put("sundryData", sundryData);
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
     @RequestMapping(params = "method=updateSundry", method = RequestMethod.POST)
-    public Map<String, Object> updateSundry(
+    public String updateSundry(
             @RequestParam(value = "sundryId") long sundryId,
             @RequestParam(value = "key") String key,
             @RequestParam(value = "value") String value,
@@ -73,12 +73,12 @@ public class SundryController extends AbstractController {
         map.put("result", sundryData != null);
         map.put("sundryData", sundryData);
 
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
 
     @RequestMapping(params = "method=getSundry", method = RequestMethod.GET)
-    public Map<String, Object> getSundry(
+    public String getSundry(
             @RequestParam(value = "key") String key,
             @RequestParam(value = "value") String value,
             HttpServletRequest request, HttpServletResponse response) {
@@ -89,11 +89,11 @@ public class SundryController extends AbstractController {
         SundryData sundryData = sundryService.getSundry(key, value);
 
         map.put("sundryData", sundryData);
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
     @RequestMapping(params = "method=getSundryById", method = RequestMethod.GET)
-    public Map<String, Object> getSundryById(
+    public String getSundryById(
             @RequestParam(value = "sundryId") long sundryId,
             HttpServletRequest request, HttpServletResponse response) {
 
@@ -103,11 +103,11 @@ public class SundryController extends AbstractController {
         SundryData sundryData = sundryService.getSundryById(sundryId);
 
         map.put("sundryData", sundryData);
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
     @RequestMapping(params = "method=getSundryList", method = RequestMethod.GET)
-    public Map<String, Object> getSundryList(
+    public String getSundryList(
             @RequestParam(value = "key") String key,
             HttpServletRequest request, HttpServletResponse response) {
 
@@ -118,7 +118,7 @@ public class SundryController extends AbstractController {
 
         map.put("sundryList", sundryList);
 
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
 }

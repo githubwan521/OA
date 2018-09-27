@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="motian.dao.mapper.NoteMapper">
+    <resultMap id="NoteType" type="NoteData">
+        <result property="note_id" column="note_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+    </resultMap>
+
+    <sql id="NoteColums">
+        user_id, title,content
+    </sql>
+
+    <insert id="insert">
+        insert into oa_note
+        (note_id,
+        <include refid="NoteColums"/>
+        ,db_create_time,db_update_time)
+        values
+        (#{data.note_id},#{data.user_id},#{data.title},#{data.content},now(),now());
+    </insert>
+
+    <update id="update">
+        update oa_note
+        set
+        <if test="user_id!=null">user_id =#{data.user_id}</if>,
+        <if test="title!=null">title=#{data.title}</if>,
+        <if test="content!=null">content=#{data.content}</if>,
+        db_update_time = now()
+        where note_id = #{data.note_id}
+    </update>
+
+    <select id="getNoteById" resultMap="NoteType">
+        select note_id,
+        <include refid="NoteColums"/>
+        from oa_note
+        where note_id = #{note_id}
+    </select>
+
+    <select id="getNoteList" resultMap="NoteType">
+        select note_id,
+        <include refid="NoteColums"/>
+        from oa_note
+    </select>
+
+</mapper>

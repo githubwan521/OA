@@ -35,7 +35,7 @@ public class UserInfoController extends AbstractController {
     UserInfoService userInfoService;
 
     @RequestMapping(params = "method=addUserInfo", method = RequestMethod.POST)
-    public Map<String, Object> addUserInfo(
+    public String addUserInfo(
             @RequestParam(value = "userId") long userId,
             @RequestParam(value = "pass", required = false) String pass,
             @RequestParam(value = "introduce", required = false) String introduce,
@@ -56,11 +56,11 @@ public class UserInfoController extends AbstractController {
 
         map.put("result", userInfoData != null);
         map.put("userInfoData", userInfoData);
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
     @RequestMapping(params = "method=updateUserInfo", method = RequestMethod.POST)
-    public Map<String, Object> updateUserInfo(
+    public String updateUserInfo(
             @RequestParam(value = "userId") long userId,
             @RequestParam(value = "pass", required = false) String pass,
             @RequestParam(value = "introduce", required = false) String introduce,
@@ -81,11 +81,11 @@ public class UserInfoController extends AbstractController {
 
         map.put("result", userInfoData != null);
         map.put("userInfoData", userInfoData);
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
     @RequestMapping(params = "method=getUserInfoById", method = RequestMethod.GET)
-    public Map<String, Object> getUserInfoById(
+    public String getUserInfoById(
             @RequestParam(value = "userId") long userId,
             HttpServletRequest request, HttpServletResponse response) {
 
@@ -94,11 +94,11 @@ public class UserInfoController extends AbstractController {
         UserInfoData userInfoData = userInfoService.getUserInfoById(userId);
 
         map.put("userInfoData", userInfoData);
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
     @RequestMapping(params = "method=getUserInfoList", method = RequestMethod.GET)
-    public Map<String, Object> getUserInfoList(
+    public String getUserInfoList(
             HttpServletRequest request, HttpServletResponse response) {
 
         LOG.debug("/oa/user/getUserInfoList");
@@ -106,6 +106,6 @@ public class UserInfoController extends AbstractController {
         List<UserInfoData> userInfoList = userInfoService.getUserInfoList();
 
         map.put("userInfoList", userInfoList);
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 }

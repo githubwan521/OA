@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="motian.dao.mapper.ConferenceRoomEquipmentMapper">
+    <resultMap id="ConferenceRoomEquipmentType"
+               type="ConferenceRoomEquipmentData">
+        <result property="cre_id" column="cre_id"/>
+        <result property="cre_name" column="cre_name"/>
+        <result property="cre_info" column="cre_info"/>
+        <result property="cre_status" column="cre_status"/>
+    </resultMap>
+
+    <sql id="ConferenceRoomEquipmentColums">
+        cre_name, cre_info,cre_status
+    </sql>
+
+    <insert id="insert">
+        insert into oa_conference_room_equipment
+        (cre_id,
+        <include refid="ConferenceRoomEquipmentColums"/>
+        ,db_create_time,db_update_time)
+        values
+        (#{data.cre_id},#{data.cre_name},#{data.cre_info},#{data.cre_status},now(),now());
+    </insert>
+
+    <update id="update">
+        update oa_conference_room_equipment
+        set
+        <if test="cre_name!=null">cre_name =#{data.cre_name}</if>,
+        <if test="cre_info!=null">cre_info=#{data.cre_info}</if>,
+        <if test="cre_status!=null">cre_status=#{data.cre_status}</if>,
+        db_update_time = now()
+        where cre_id = #{data.cre_id}
+    </update>
+
+    <select id="getConferenceRoomEquipmentById"
+            resultMap="ConferenceRoomEquipmentType">
+        select cre_id,
+        <include refid="ConferenceRoomEquipmentColums"/>
+        from oa_conference_room_equipment
+        where cre_id = #{cre_id}
+    </select>
+
+    <select id="getConferenceRoomEquipmentList"
+            resultMap="ConferenceRoomEquipmentType">
+        select cre_id,
+        <include refid="ConferenceRoomEquipmentColums"/>
+        from oa_conference_room_equipment
+    </select>
+
+</mapper>

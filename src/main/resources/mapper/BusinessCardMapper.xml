@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="motian.dao.mapper.BusinessCardMapper">
+    <resultMap id="BusinessCardType" type="BusinessCardData">
+        <result property="card_id" column="card_id"/>
+        <result property="card_id" column="bch_id"/>
+        <result property="owner_id" column="owner_id"/>
+        <result property="memoname" column="memoname"/>
+        <result property="friend_id" column="friend_id"/>
+        <result property="attribute" column="attribute"/>
+    </resultMap>
+
+    <sql id="businessCardColums">
+        bch_id, owner_id, memoname,friend_id,friend_id,attribute
+    </sql>
+
+    <insert id="insert">
+        insert into oa_business_card
+        (card_id,<include refid="businessCardColums"/>
+        ,db_create_time,db_update_time)
+        values
+        (#{data.card_id},#{data.card_id},#{data.owner_id},#{data.memoname},
+        #{data.friend_id},#{data.attribute},now(),now());
+    </insert>
+
+    <update id="update">
+        update oa_business_card
+        set
+        <if test="card_id!=null">card_id=#{data.card_id}</if>,
+        <if test="owner_id!=null">owner_id =#{data.owner_id}</if>,
+        <if test="memoname!=null">memoname=#{data.memoname}</if>,
+        <if test="friend_id!=null">friend_id=#{data.friend_id}</if>,
+        <if test="attribute!=null">attribute=#{data.attribute}</if>,
+        db_update_time = now()
+        where card_id = #{data.card_id}
+    </update>
+
+    <select id="getBusinessCardById" resultMap="BusinessCardType">
+        select card_id,
+        <include refid="businessCardColums"/>
+        from oa_business_card
+        where card_id = #{card_id}
+    </select>
+
+    <select id="getBusinessCardList" resultMap="BusinessCardType">
+        select card_id,
+        <include refid="businessCardColums"/>
+        from oa_business_card
+    </select>
+
+</mapper>

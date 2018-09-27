@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="motian.dao.mapper.ConferenceRoomReservationMapper">
+    <resultMap id="ConferenceRoomEquipmentType"
+               type="ConferenceRoomReservationData">
+        <result property="crr_id" column="crr_id"/>
+        <result property="applicant_id" column="applicant_id"/>
+        <result property="cr_id" column="cr_id"/>
+        <result property="cre_ids" column="cre_ids"/>
+        <result property="user_ids" column="user_ids"/>
+        <result property="start_time" column="start_time"/>
+        <result property="end_time" column="end_time"/>
+    </resultMap>
+
+    <sql id="ConferenceRoomReservationCloum">
+        applicant_id, cr_id,cre_ids,user_ids,start_time,end_time
+    </sql>
+
+    <insert id="insert">
+        insert into oa_conference_room_reservation
+        (crr_id,
+        <include refid="ConferenceRoomReservationCloum"/>
+        ,db_create_time,db_update_time)
+        values
+        (#{data.crr_id},#{data.applicant_id},#{data.cr_id},#{data.cre_ids},
+        #{data.user_ids},#{data.start_time},#{data.end_time},now(),now());
+    </insert>
+
+    <update id="update">
+        update oa_conference_room_reservation
+        set
+        <if test="applicant_id!=null">applicant_id =#{data.applicant_id}</if>,
+        <if test="cr_id!=null">cr_id=#{data.cr_id}</if>,
+        <if test="cre_ids!=null">cre_ids=#{data.cre_ids}</if>,
+        <if test="user_ids!=null">user_ids=#{data.user_ids}</if>,
+        <if test="start_time!=null">start_time=#{data.start_time}</if>,
+        <if test="end_time!=null">end_time=#{data.end_time}</if>,
+        db_update_time = now()
+        where crr_id = #{data.crr_id}
+    </update>
+
+    <select id="getConferenceRoomEquipmentById"
+            resultMap="ConferenceRoomEquipmentType">
+        select crr_id,
+        <include refid="ConferenceRoomReservationCloum"/>
+        from oa_conference_room_reservation
+        where crr_id = #{crr_id}
+    </select>
+
+    <select id="getConferenceRoomEquipmentList"
+            resultMap="ConferenceRoomEquipmentType">
+        select crr_id,
+        <include refid="ConferenceRoomReservationCloum"/>
+        from oa_conference_room_reservation
+    </select>
+
+</mapper>

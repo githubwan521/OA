@@ -34,7 +34,7 @@ public class UserController extends AbstractController {
     UserService userService;
 
     @RequestMapping(params = "method=addUser", method = RequestMethod.POST)
-    public Map<String, Object> addUser(
+    public String addUser(
             @RequestParam(value = "nickname") String nickname,
             @RequestParam(value = "status") int status,
             @RequestParam(value = "department") int department,
@@ -52,11 +52,11 @@ public class UserController extends AbstractController {
 
         map.put("result", userData != null);
         map.put("userData", userData);
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
     @RequestMapping(params = "method=updateUser", method = RequestMethod.POST)
-    public Map<String, Object> updateUser(
+    public String updateUser(
             @RequestParam(value = "userId") long userId,
             @RequestParam(value = "nickname", required = false) String nickname,
             @RequestParam(value = "status", required = false) int status,
@@ -76,11 +76,11 @@ public class UserController extends AbstractController {
         map.put("result", userData != null);
         map.put("userData", userData);
 
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
     @RequestMapping(params = "method=deleteUser", method = RequestMethod.POST)
-    public Map<String, Object> deleteUser(
+    public String deleteUser(
             @RequestParam(value = "userId") long userId,
             HttpServletRequest request, HttpServletResponse response) {
 
@@ -93,11 +93,11 @@ public class UserController extends AbstractController {
         }
 
         map.put("result", bool);
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
     @RequestMapping(params = "method=getUserByUserId", method = RequestMethod.GET)
-    public Map<String, Object> getUserByUserId(
+    public String getUserByUserId(
             @RequestParam(value = "userId") int userId,
             HttpServletRequest request, HttpServletResponse response) {
 
@@ -107,11 +107,11 @@ public class UserController extends AbstractController {
         UserData userData = userService.getUserByUserId(userId);
 
         map.put("userData", userData);
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
     @RequestMapping(params = "method=getUserByNickname", method = RequestMethod.GET)
-    public Map<String, Object> getUserByNickname(
+    public String getUserByNickname(
             @RequestParam(value = "nickname") String nickname,
             HttpServletRequest request, HttpServletResponse response) {
 
@@ -121,11 +121,11 @@ public class UserController extends AbstractController {
         UserData userData = userService.getUserByNickname(nickname);
 
         map.put("userData", userData);
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
     @RequestMapping(params = "method=getUserList", method = RequestMethod.GET)
-    public Map<String, Object> getUserList(
+    public String getUserList(
             @RequestParam(value = "model") int model,
             HttpServletRequest request, HttpServletResponse response) {
 
@@ -136,7 +136,7 @@ public class UserController extends AbstractController {
 
         map.put("userList", userList);
 
-        return OAWebUtils.toJsonObject(map);
+        return OAWebUtils.toJsonp(map);
     }
 
 }

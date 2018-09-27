@@ -9,6 +9,7 @@ import motian.utils.OAWebUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,8 +41,9 @@ public class LoginController extends AbstractController {
     UserInfoService userInfoService;
 
 
-    @RequestMapping(params = "method=login", method = RequestMethod.POST)
-    public Map<String, Object> login(
+    @RequestMapping(params = "method=login", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String login(
             @RequestParam(value = "nickname") String nickname,
             @RequestParam(value = "password") String password,
             HttpServletRequest request, HttpServletResponse response) {
@@ -58,6 +60,7 @@ public class LoginController extends AbstractController {
         }
 
         map.put("result", bool);
-        return OAWebUtils.toJsonObject(map);
+
+        return OAWebUtils.toJsonp(map);
     }
 }
