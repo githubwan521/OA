@@ -249,7 +249,7 @@ values("1","1",now(),now());
 
 # 用户2
 insert into oa_user(user_id,nickname,status,department,state,db_create_time,db_update_time)
-values(2,"tianmo","1","2","0",now(),now());
+values(2,"tianmo","2","1","0",now(),now());
 # 用户2信息
 insert into oa_userinfo(user_id,user_pass,introduce,interest,telephone,db_create_time,db_update_time)
 values(2,"123456","君识不人谁下天","乒乓求","18888888888",now(),now());
