@@ -56,8 +56,8 @@ dependencies {
     //3------日志
     //将spring引用的日志实现commons-logging导入到slf4j中------自动引入slfj-api
     compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.25'
-    //使用logback来实现日志----自动引入logback-core
 //    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    //使用logback来实现日志----自动引入logback-core
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 //    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
 
