@@ -1,11 +1,10 @@
 package motian.controller;
 
 import com.google.common.collect.Maps;
+import lombok.extern.apachecommons.CommonsLog;
 import motian.dao.model.ScheduleData;
 import motian.service.ScheduleService;
 import motian.utils.OAWebUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +25,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(ScheduleController.URLMAPPING)
+@CommonsLog
 public class ScheduleController extends AbstractController {
     static final String URLMAPPING = "/oa/Schedule";
-    private static final Log LOG = LogFactory.getLog(ScheduleController.class);
 
     @Autowired
     ScheduleService ScheduleService;
@@ -44,14 +43,14 @@ public class ScheduleController extends AbstractController {
             @RequestParam(value = "coend_timentent") String end_time,
             HttpServletRequest request, HttpServletResponse response) {
 
-        LOG.debug("/oa/Schedule/addSchedule   " + "user_id=" + user_id);
+        log.debug("/oa/Schedule/addSchedule   " + "user_id=" + user_id);
 
         Map<String, Object> map = Maps.newHashMap();
         ScheduleData ScheduleData = ScheduleService.
                 addSchedule(user_id, readers_id, assign_id,
                         title, content, start_time, end_time);
         if (StringUtils.isEmpty(ScheduleData)) {
-            LOG.warn("fail to add Schedule." + "user_id=" + user_id);
+            log.warn("fail to add Schedule." + "user_id=" + user_id);
         }
 
         map.put("result", ScheduleData != null);
@@ -71,14 +70,14 @@ public class ScheduleController extends AbstractController {
             @RequestParam(value = "coend_timentent") String end_time,
             HttpServletRequest request, HttpServletResponse response) {
 
-        LOG.debug("/oa/Schedule/updateSchedule   " +
+        log.debug("/oa/Schedule/updateSchedule   " +
                 "schedule_id=" + schedule_id);
 
         Map<String, Object> map = Maps.newHashMap();
         ScheduleData ScheduleData = ScheduleService.updateSchedule(schedule_id, user_id, readers_id, assign_id,
                 title, content, start_time, end_time);
         if (StringUtils.isEmpty(ScheduleData)) {
-            LOG.warn("fail to update Schedule." + "schedule_id=" + schedule_id);
+            log.warn("fail to update Schedule." + "schedule_id=" + schedule_id);
         }
 
         map.put("result", ScheduleData != null);
@@ -92,7 +91,7 @@ public class ScheduleController extends AbstractController {
             @RequestParam(value = "ScheduleId") long ScheduleId,
             HttpServletRequest request, HttpServletResponse response) {
 
-        LOG.debug("/oa/Schedule/getScheduleById   ScheduleId=" + ScheduleId);
+        log.debug("/oa/Schedule/getScheduleById   ScheduleId=" + ScheduleId);
 
         Map<String, Object> map = Maps.newHashMap();
         ScheduleData ScheduleData = ScheduleService.getScheduleById(ScheduleId);
@@ -106,7 +105,7 @@ public class ScheduleController extends AbstractController {
     public String getScheduleList(
             HttpServletRequest request, HttpServletResponse response) {
 
-        LOG.debug("/oa/Schedule/getScheduleList");
+        log.debug("/oa/Schedule/getScheduleList");
 
         Map<String, Object> map = Maps.newHashMap();
         List<ScheduleData> ScheduleList = ScheduleService.getScheduleList();

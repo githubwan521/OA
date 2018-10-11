@@ -1,6 +1,7 @@
 package motian.dao.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.HashMap;
  * @Date: 2018/9/12 16:41
  */
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
