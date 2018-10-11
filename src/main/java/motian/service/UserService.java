@@ -46,6 +46,9 @@ public class UserService {
             UserInfoData userInfoData = new UserInfoData();
             userInfoData.setUserId(getUserByNickname(nickname).getUserId());
             userInfoData.setPass(DEFAULTPASS);
+            userInfoData.setIntroduce("");
+            userInfoData.setInterest("");
+            userInfoData.setTelephone("");
             if (1 == userInfoManager.insert(userInfoData)) {
                 return userData;
             }

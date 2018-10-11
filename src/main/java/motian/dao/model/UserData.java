@@ -36,7 +36,6 @@ public class UserData extends BaseData {
         objMap.put("nickname", nickname);
         objMap.put("identity", status);
         objMap.put("department", department);
-        objMap.put("state", department);
 
         return objMap;
     }
